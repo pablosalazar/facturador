@@ -1,0 +1,34 @@
+.form-group.form-md-line-input.form-md-floating-label .form-control~label {
+    font-size: 14px;
+}
+
+#config .form-group.form-md-line-input {
+    margin: 0 0 10px 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400 !important;
+}
+
+.td-num {
+    width: 8px;
+    text-align: center;
+}
+
+.f_req {
+    color: #ff0000;
+}
+
+.text-muted {
+    color: #999;
+    font-size: 12px;
+}
+
+.alert {
+    font-size: 12px;
+}
+
+.form-group label {
+    color: #999;
+    font-size: 13px;
+}
