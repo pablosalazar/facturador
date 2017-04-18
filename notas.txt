@@ -1,0 +1,37 @@
+NOTAS
+----------------------------------------------
+limpiar la layout master de los estilos y js que no estoy usando
+agregar categoria padre
+ver si una plantilla puede extender otra
+poner limite a la creacion de precios
+transacciones para categorias y precios y productos y precios
+
+actualizar un precio en la categoria no lo actualizara en los productos ya creados.
+si era necesario las filas de precios sin datos vacios funcion?
+precio de venta debe ser mayor que precio de costo
+al editar la categoria y cometer un error no quedan los valores anteriores antes de enviar
+
+si estoy editanto un producto al cambiar la categoria si deberia cambiar los precios
+poner formato a los precios
+
+deshabilitar campo de crsf
+Exportar excel y pdf
+Impuestos?
+Porcentaje de descuento
+
+
+INFO
+----------------------------------------------
+flujo de caja
+configuracion del sistema
+movimiento de caja ( venta, pago, deuda, compra, devolucion)
+Que es un kardex?
+
+
+REALIZADOS
+----------------------------------------------
+agregar validacion a los precios
+probar que no deje ingresar el mismo nombre
+producto al cambiar a sin categoria me borra los precios
+ERROR: si borro categorias con productos
+cambiar los nombres de categoria, producto y precio a solo mayuscula la primera letra

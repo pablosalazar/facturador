@@ -1,6 +1,8 @@
 
 var precios = function(){
 
+    var $form = $("#form");
+
     var agregarFilaPrecios = function(precio)
     {
         $("#filas").append(getFilaPrecios(precio)).children(':last').hide().fadeIn(500);
@@ -8,16 +10,25 @@ var precios = function(){
 
     var eliminarFilaPrecios = function()
     {
-        var filas = $("#config").find('.fila-precio');
+        var accion = $form.attr('action');
 
-        if(filas.length > 1) {
+        if(accion.indexOf('productos') >= 0){
+            var filas = $("#config").find('.fila-precio');
+
+            if(filas.length > 1) {
+                $(this).closest('.fila-precio').fadeOut(500, function() {
+                    $(this).remove();
+                });
+            }
+            else {
+                swal("No puedes borrar todos los precios!", "Los productos debe tener almenos un precio definido.", "warning");
+            }
+        } else {
             $(this).closest('.fila-precio').fadeOut(500, function() {
                 $(this).remove();
             });
         }
-        else {
-            swal("No puedes borrar todos los precios!", "Los productos debe tener almenos un precio definido.", "warning");
-        }
+
     }
 
     var getFilaPrecios = function(precio)
@@ -31,12 +42,27 @@ var precios = function(){
             }
         }
         else {
-            precio.costo?precio.costo:'';
-            precio.referencia?precio.referencia:'';
+            if(precio.venta == null) {
+                precio.venta = "";
+            }
+
+            if(precio.costo == null) {
+                precio.costo = "";
+            }
+
+            if(precio.referencia == null) {
+                precio.referencia = "";
+            }
         }
 
         return '' +
             '<div class="row bg-white padding-tb-10 margin-top-10 fila-precio">' +
+                '<div class="col-md-5">' +
+                    '<div class="form-group">' +
+                        '<label>Nombre</label>' +
+                        '<input type="text" name="precios[referencia][]" value="' + precio.referencia + '" class="form-control" >' +
+                    '</div>' +
+                '</div>' +
                 '<div class="col-md-2">' +
                     '<div class="form-group">' +
                         '<label>Precio de venta  <span class="f_req">*</span></label>' +
@@ -49,13 +75,7 @@ var precios = function(){
                         '<input type="text" name="precios[costo][]" value="' + precio.costo + '" class="form-control text-right" placeholder="$">' +
                     '</div>' +
                 '</div>' +
-                '<div class="col-md-6">' +
-                    '<div class="form-group">' +
-                        '<label>Referencia</label>' +
-                        '<input type="text" name="precios[referencia][]" value="' + precio.referencia + '" class="form-control" >' +
-                    '</div>' +
-                '</div>' +
-                '<div class="col-md-2 text-center">' +
+                '<div class="col-md-3 text-center">' +
                     '<br>' +
                     '<a href="javascript:;" class="btn btn-circle btn-icon-only red btn-borrar">' +
                     '<i class="glyphicon glyphicon-trash"></i>' +
@@ -67,22 +87,18 @@ var precios = function(){
 
     var cargarPreciosCategoria = function(e)
     {
-        $("#filas").html("");
-
         id = $("#categorias option:selected").val();
 
-        if(id != "Sin categoria" && id !="")
-        {
-            $.ajax({
-                url: url_base + "precios/categoria/" + id,
-                type: 'GET'
-            }).done(function(data) {
-                data.forEach(function(datos){
-                    agregarFilaPrecios(datos);
-                });
-            });
-        }
+        $("#filas").html("");
 
+        $.ajax({
+            url: url_base + "precios/categoria/" + id,
+            type: 'GET'
+        }).done(function(data) {
+            data.forEach(function(datos){
+                agregarFilaPrecios(datos);
+            });
+        });
     }
 
     return {
